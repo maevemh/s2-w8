@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ForestFire {
     public static void main(String[] args) {
         // Step 1: Read in the data file (forests.csv) and create Forest objects.
@@ -5,6 +7,8 @@ public class ForestFire {
         //   - Skip/read the header row.
         //   - Parse each line into fields and construct a Forest.
         //   - Store forests in an ArrayList: ArrayList<Forest> forests = ...
+        ArrayList<Forest> forests = new ArrayList<Forest>();
+        Scanner scan = new Scanner(new File("forests.csv"));
 
         // Step 2: Pick one forest to run the simulation.
         //   - Choose by index.
@@ -16,6 +20,7 @@ public class ForestFire {
         //   - At the end of each simulation step, you should write the current state of the Tree[][] grid to a file
 
         // Step 4: We will vibe code our way to visualization
+        Forest f =new Forest(null, null, null, 0, 0, 0, 0, 0);
 
     }
 

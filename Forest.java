@@ -15,7 +15,7 @@ public class Forest {
     private Tree[][] grid;
 
     public Forest(String name, String type, String vegetation, double burnRate, int burnDuration, int initialTreeCount, int gridRows, int gridCols) {
-        this.grid = null; //TODO; initialize grid to using gridRows and gridCols
+        this.grid = new Tree[gridRows][gridCols]; //TODO; initialize grid to using gridRows and gridCols
         this.name = name;
         this.type = type;
         this.vegetation = vegetation;
@@ -31,6 +31,24 @@ public class Forest {
         // Step 2: Fill the grid with EMPTY trees first so every cell has a Tree object.
         // Step 3: Randomly place TREE states until the target initial tree count is reached.
         // Step 4: Reset any burn-time/state tracking needed for a fresh simulation start.
+        for(int r=0; r<grid.length; r++){
+            for(int c=0; c<grid[0].length; c++){
+                grid[r][c]= new Tree(0);
+            }
+        }
+        int count=0;
+        while(count < initialTreeCount){
+            int r = (int)Math.random()*grid.length;
+            int c = (int)Math.random()*grid[0].length;
+            if(grid[r][c].getState()==0 || grid[r][c].getState()==Tree.BURNING){
+                grid[r][c].setState(1);
+                grid[r][c].setBurnTime(0);
+
+            }
+            count++;
+
+        }
+
     }
 
     public Tree[][] deepCopy(){
@@ -38,7 +56,14 @@ public class Forest {
         // Step 2: Loop through every cell in grid.
         // Step 3: Copy each Tree by value (state and burnTime), not by reference.
         // Step 4: Return the copied Tree[][].
-        return null;
+        Tree copy[][]= new Tree[grid.length][grid[0].length];
+        for(int r=0; r<grid.length; r++){
+            for(int c=0; c<grid[0].length; c++){
+                copy[r][c].setState(grid[r][c].getState());
+                copy[r][c].setBurnTime(grid[r][c].getBurnTime());
+            }
+        }
+        return copy;
     }
 
     public void spreadFire() {
